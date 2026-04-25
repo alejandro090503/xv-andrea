@@ -32,11 +32,11 @@ body{font-family:'Montserrat',sans-serif;font-weight:300;color:#2D1B0E;backgroun
 #env-flash{
   position:fixed;inset:0;z-index:9999;opacity:0;pointer-events:none;
   background:radial-gradient(ellipse at 50% 48%,
-    rgba(255,220,235,1.00) 0%,
-    rgba(255,200,220,0.96) 14%,
-    rgba(245,180,200,0.90) 32%,
-    rgba(200,140,160,0.85) 56%,
-    rgba(80,40,50,0.95) 80%,
+    rgba(255,255,255,1.00) 0%,
+    rgba(255,253,250,0.98) 12%,
+    rgba(238,234,228,0.94) 32%,
+    rgba(160,156,150,0.88) 58%,
+    rgba(40,38,35,0.96) 80%,
     rgba(253,246,238,1) 100%);
 }
 .envelope-hint{
@@ -106,18 +106,35 @@ section{padding:52px 28px;}
 .eyebrow{font-family:'Montserrat',sans-serif;font-size:8px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:6px;}
 .sec-title{font-family:'Great Vibes',cursive;font-size:52px;color:var(--pink);text-align:center;line-height:1.1;margin-bottom:6px;}
 
+/* ── MIRROR FRAMES ── */
+.mirror-frame{
+  border:1.5px solid rgba(184,144,106,0.55);
+  border-radius:5px;
+  position:relative;
+  background:linear-gradient(135deg,rgba(253,238,244,0.72),rgba(253,246,238,0.92));
+  box-shadow:0 8px 38px rgba(232,83,138,0.09),inset 0 1px 0 rgba(255,255,255,0.58);
+}
+.mirror-frame::before{
+  content:'';position:absolute;inset:8px;
+  border:1px solid rgba(232,83,138,0.22);
+  border-radius:3px;pointer-events:none;z-index:0;
+}
+.mf-corner{position:absolute;width:30px;height:30px;pointer-events:none;z-index:3;}
+.mf-tl{top:3px;left:3px;}
+.mf-tr{top:3px;right:3px;transform:scaleX(-1);}
+.mf-bl{bottom:3px;left:3px;transform:scaleY(-1);}
+.mf-br{bottom:3px;right:3px;transform:scale(-1,-1);}
+
 /* ── MENSAJE ── */
 .msg-outer{position:relative;padding:36px 20px 20px;margin-top:8px;}
 .msg-bow-top{position:absolute;top:-24px;left:50%;transform:translateX(-50%);width:96px;}
 .msg-frame{
-  border:2px solid var(--pink-light);border-radius:14px;
   padding:32px 24px;text-align:center;
-  background:linear-gradient(135deg,rgba(253,238,244,0.7),rgba(253,246,238,0.9));
-  box-shadow:0 4px 24px rgba(232,83,138,0.08);
+  overflow:visible;
 }
 .msg-sparkle-tl{position:absolute;top:10px;left:28px;width:16px;animation:twinkle4 3.2s ease-in-out infinite;}
 .msg-sparkle-tr{position:absolute;top:10px;right:28px;width:12px;animation:twinkle4 4s ease-in-out infinite 1.2s;}
-.msg-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;line-height:1.9;color:var(--text);}
+.msg-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;line-height:1.9;color:var(--text);position:relative;z-index:1;}
 
 /* ── COUNTDOWN ── */
 #scd{text-align:center;}
@@ -156,23 +173,29 @@ section{padding:52px 28px;}
 /* ── UBICACION ── */
 .ubic-card{
   background:linear-gradient(135deg,rgba(253,238,244,0.55),rgba(253,246,238,0.85));
-  border:1.5px solid var(--border-pink);border-radius:14px;
+  border:1.5px solid rgba(184,144,106,0.55);
+  border-radius:5px;
   padding:30px 22px;margin-bottom:20px;text-align:center;
   position:relative;overflow:hidden;
-  box-shadow:0 4px 20px rgba(232,83,138,0.07);
+  box-shadow:0 8px 38px rgba(232,83,138,0.09),inset 0 1px 0 rgba(255,255,255,0.58);
 }
-.ubic-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--pink),transparent);}
-.ubic-icon{margin-bottom:12px;display:block;}
-.ubic-tipo{font-family:'Great Vibes',cursive;font-size:38px;color:var(--pink);margin-bottom:8px;}
-.ubic-name{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:6px;line-height:1.4;}
-.ubic-addr{font-family:'Montserrat',sans-serif;font-size:11px;color:var(--text);line-height:1.8;margin-bottom:6px;}
-.ubic-hora{font-family:'Playfair Display',serif;font-size:28px;color:var(--pink);font-weight:700;margin:12px 0;}
+.ubic-card::before{
+  content:'';position:absolute;inset:8px;
+  border:1px solid rgba(232,83,138,0.22);
+  border-radius:3px;pointer-events:none;z-index:0;
+}
+.ubic-icon{margin-bottom:12px;display:block;position:relative;z-index:1;}
+.ubic-tipo{font-family:'Great Vibes',cursive;font-size:38px;color:var(--pink);margin-bottom:8px;position:relative;z-index:1;}
+.ubic-name{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:6px;line-height:1.4;position:relative;z-index:1;}
+.ubic-addr{font-family:'Montserrat',sans-serif;font-size:11px;color:var(--text);line-height:1.8;margin-bottom:6px;position:relative;z-index:1;}
+.ubic-hora{font-family:'Playfair Display',serif;font-size:28px;color:var(--pink);font-weight:700;margin:12px 0;position:relative;z-index:1;}
 .btn-pink{
   display:inline-block;padding:13px 34px;background:var(--pink);color:#fff;
   border-radius:50px;font-family:'Montserrat',sans-serif;font-size:9px;
   letter-spacing:5px;text-transform:uppercase;text-decoration:none;
   border:none;cursor:pointer;margin-top:8px;
   box-shadow:0 5px 18px rgba(232,83,138,0.32);transition:transform .2s,box-shadow .2s;
+  position:relative;z-index:1;
 }
 .btn-pink:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(232,83,138,0.42);}
 
@@ -190,22 +213,27 @@ section{padding:52px 28px;}
 /* ── BUZON ── */
 .buzon-outer{position:relative;padding:40px 20px 20px;}
 .buzon-bow-top{position:absolute;top:-22px;left:50%;transform:translateX(-50%);width:90px;}
-.buzon-card{border:2px solid var(--pink-light);border-radius:14px;padding:30px 24px;text-align:center;background:linear-gradient(135deg,rgba(253,238,244,0.7),rgba(253,246,238,0.9));box-shadow:0 4px 24px rgba(232,83,138,0.08);}
-.buzon-icon-wrap{margin-bottom:14px;}
-.buzon-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;line-height:1.85;color:var(--text);margin-bottom:20px;}
-.buzon-clabe-wrap{background:rgba(255,255,255,0.7);border-radius:10px;padding:16px 20px;border:1px solid var(--border-pink);}
-.buzon-clabe-label{font-family:'Montserrat',sans-serif;font-size:8px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
-.buzon-clabe{font-family:'Playfair Display',serif;font-size:17px;color:var(--pink);letter-spacing:3px;margin-bottom:10px;display:block;}
-.buzon-pending{font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(93,48,32,0.38);font-style:italic;}
+.buzon-card{
+  border:1.5px solid rgba(184,144,106,0.55);
+  border-radius:5px;padding:34px 24px 30px;text-align:center;
+  background:linear-gradient(135deg,rgba(253,238,244,0.72),rgba(253,246,238,0.92));
+  box-shadow:0 8px 38px rgba(232,83,138,0.09),inset 0 1px 0 rgba(255,255,255,0.58);
+  position:relative;overflow:hidden;
+}
+.buzon-card::before{
+  content:'';position:absolute;inset:8px;
+  border:1px solid rgba(232,83,138,0.22);
+  border-radius:3px;pointer-events:none;z-index:0;
+}
+.buzon-icon-wrap{margin-bottom:14px;position:relative;z-index:1;}
+.buzon-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;line-height:1.85;color:var(--text);margin-bottom:0;position:relative;z-index:1;}
 
 /* ── RSVP ── */
 .rsvp-outer{position:relative;padding:52px 0 0;}
-/* Moño grande tipo regalo — tapa la parte superior del frame */
 .rsvp-bow-grande{
   position:absolute;top:-30px;left:50%;transform:translateX(-50%);
   width:220px;z-index:2;filter:drop-shadow(0 6px 16px rgba(232,83,138,0.30));
 }
-/* Moño esquina inferior-derecha */
 .rsvp-bow-br{
   position:absolute;bottom:-28px;right:-10px;
   width:110px;z-index:2;
@@ -213,18 +241,25 @@ section{padding:52px 28px;}
   filter:drop-shadow(0 4px 10px rgba(232,83,138,0.25));
 }
 .rsvp-frame{
-  border:2px solid var(--pink-light);border-radius:14px;padding:34px 22px 30px;
-  background:linear-gradient(135deg,rgba(253,238,244,0.7),rgba(253,246,238,0.9));
-  box-shadow:0 4px 24px rgba(232,83,138,0.08);
+  border:1.5px solid rgba(184,144,106,0.55);
+  border-radius:5px;padding:34px 22px 30px;
+  background:linear-gradient(135deg,rgba(253,238,244,0.72),rgba(253,246,238,0.92));
+  box-shadow:0 8px 38px rgba(232,83,138,0.09),inset 0 1px 0 rgba(255,255,255,0.58);
   position:relative;overflow:visible;
 }
-.rsvp-frame label{display:block;font-family:'Montserrat',sans-serif;font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin:16px 0 7px;}
+.rsvp-frame::before{
+  content:'';position:absolute;inset:8px;
+  border:1px solid rgba(232,83,138,0.22);
+  border-radius:3px;pointer-events:none;z-index:0;
+}
+.rsvp-frame label{display:block;font-family:'Montserrat',sans-serif;font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin:16px 0 7px;position:relative;z-index:1;}
 .rsvp-frame label:first-of-type{margin-top:0;}
 .rsvp-frame input,.rsvp-frame select,.rsvp-frame textarea{
   width:100%;padding:13px 16px;min-height:48px;
   border:1.5px solid var(--border-pink);border-radius:10px;
   background:#fff;font-family:'Montserrat',sans-serif;
   font-size:13px;color:var(--dark);outline:none;transition:border-color .3s;-webkit-appearance:none;
+  position:relative;z-index:1;
 }
 .rsvp-frame input::placeholder,.rsvp-frame textarea::placeholder{color:rgba(93,48,32,0.3);}
 .rsvp-frame input:focus,.rsvp-frame select:focus,.rsvp-frame textarea:focus{border-color:var(--pink);}
@@ -235,6 +270,7 @@ section{padding:52px 28px;}
   background:var(--pink);color:#fff;border-radius:50px;border:none;cursor:pointer;
   font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:5px;text-transform:uppercase;
   box-shadow:0 6px 22px rgba(232,83,138,0.38);transition:transform .2s;
+  position:relative;z-index:1;
 }
 .btn-wa:hover{transform:translateY(-2px);}
 
@@ -340,7 +376,12 @@ footer{padding:52px 20px 64px;text-align:center;}
         <ellipse cx="80" cy="52" rx="13" ry="10" fill="#C83070"/>
         <ellipse cx="80" cy="52" rx="7" ry="5.5" fill="#E8538A"/>
       </svg>
-      <div class="msg-frame">
+      <div class="msg-frame mirror-frame">
+        <!-- Corner ornaments -->
+        <svg class="mf-corner mf-tl" viewBox="0 0 36 36" fill="none"><path d="M4,24 L4,4 L24,4" stroke="rgba(184,144,106,0.72)" stroke-width="1.6" stroke-linecap="round"/><circle cx="4" cy="4" r="2.8" fill="rgba(184,144,106,0.62)"/><path d="M10,4 Q10,10 4,10" stroke="rgba(184,144,106,0.42)" stroke-width="1" fill="none"/><circle cx="24" cy="4" r="1.6" fill="rgba(232,83,138,0.38)"/><circle cx="4" cy="24" r="1.6" fill="rgba(232,83,138,0.38)"/></svg>
+        <svg class="mf-corner mf-tr" viewBox="0 0 36 36" fill="none"><path d="M4,24 L4,4 L24,4" stroke="rgba(184,144,106,0.72)" stroke-width="1.6" stroke-linecap="round"/><circle cx="4" cy="4" r="2.8" fill="rgba(184,144,106,0.62)"/><path d="M10,4 Q10,10 4,10" stroke="rgba(184,144,106,0.42)" stroke-width="1" fill="none"/><circle cx="24" cy="4" r="1.6" fill="rgba(232,83,138,0.38)"/><circle cx="4" cy="24" r="1.6" fill="rgba(232,83,138,0.38)"/></svg>
+        <svg class="mf-corner mf-bl" viewBox="0 0 36 36" fill="none"><path d="M4,24 L4,4 L24,4" stroke="rgba(184,144,106,0.72)" stroke-width="1.6" stroke-linecap="round"/><circle cx="4" cy="4" r="2.8" fill="rgba(184,144,106,0.62)"/><path d="M10,4 Q10,10 4,10" stroke="rgba(184,144,106,0.42)" stroke-width="1" fill="none"/><circle cx="24" cy="4" r="1.6" fill="rgba(232,83,138,0.38)"/><circle cx="4" cy="24" r="1.6" fill="rgba(232,83,138,0.38)"/></svg>
+        <svg class="mf-corner mf-br" viewBox="0 0 36 36" fill="none"><path d="M4,24 L4,4 L24,4" stroke="rgba(184,144,106,0.72)" stroke-width="1.6" stroke-linecap="round"/><circle cx="4" cy="4" r="2.8" fill="rgba(184,144,106,0.62)"/><path d="M10,4 Q10,10 4,10" stroke="rgba(184,144,106,0.42)" stroke-width="1" fill="none"/><circle cx="24" cy="4" r="1.6" fill="rgba(232,83,138,0.38)"/><circle cx="4" cy="24" r="1.6" fill="rgba(232,83,138,0.38)"/></svg>
         <svg class="msg-sparkle-tl" viewBox="0 0 24 24" fill="#E8538A"><path d="M12 2l1.2 7.8L21 12l-7.8 1.2L12 22l-1.2-8.8L3 12l8.8-1.2z"/></svg>
         <svg class="msg-sparkle-tr" viewBox="0 0 24 24" fill="#E8538A"><path d="M12 2l1.2 7.8L21 12l-7.8 1.2L12 22l-1.2-8.8L3 12l8.8-1.2z"/></svg>
         <p class="msg-text">La vida esta hecha de momentos inolvidables, y uno de los mas especiales esta por llegar. Mis XV Anos son un sueno que quiero compartir contigo. Tu presencia hara este dia aun mas especial.</p>
@@ -419,7 +460,6 @@ footer{padding:52px 20px 64px;text-align:center;}
         <ellipse cx="34" cy="25" rx="7" ry="16" fill="#F9C0C0" opacity="0.7" transform="rotate(-12 34 25)"/>
         <ellipse cx="66" cy="25" rx="12" ry="22" fill="#F2DDD0" transform="rotate(12 66 25)"/>
         <ellipse cx="66" cy="25" rx="7" ry="16" fill="#F9C0C0" opacity="0.7" transform="rotate(12 66 25)"/>
-        <!-- bow on ear -->
         <path d="M70,12 C66,7 60,5 64,9Z" fill="#E8538A" opacity="0.9"/>
         <path d="M76,12 C80,7 86,5 82,9Z" fill="#E8538A" opacity="0.9"/>
         <ellipse cx="73" cy="11" rx="4" ry="3" fill="#C83070"/>
@@ -448,7 +488,14 @@ footer{padding:52px 20px 64px;text-align:center;}
   <section id="subic">
     <div class="eyebrow rv">Donde Nos Encontramos</div>
     <h2 class="sec-title rv">Ubicacion</h2>
+
+    <!-- Misa -->
     <div class="ubic-card rv">
+      <!-- Corner ornaments -->
+      <svg class="mf-corner mf-tl" viewBox="0 0 36 36" fill="none"><path d="M4,24 L4,4 L24,4" stroke="rgba(184,144,106,0.72)" stroke-width="1.6" stroke-linecap="round"/><circle cx="4" cy="4" r="2.8" fill="rgba(184,144,106,0.62)"/><path d="M10,4 Q10,10 4,10" stroke="rgba(184,144,106,0.42)" stroke-width="1" fill="none"/><circle cx="24" cy="4" r="1.6" fill="rgba(232,83,138,0.38)"/><circle cx="4" cy="24" r="1.6" fill="rgba(232,83,138,0.38)"/></svg>
+      <svg class="mf-corner mf-tr" viewBox="0 0 36 36" fill="none"><path d="M4,24 L4,4 L24,4" stroke="rgba(184,144,106,0.72)" stroke-width="1.6" stroke-linecap="round"/><circle cx="4" cy="4" r="2.8" fill="rgba(184,144,106,0.62)"/><path d="M10,4 Q10,10 4,10" stroke="rgba(184,144,106,0.42)" stroke-width="1" fill="none"/><circle cx="24" cy="4" r="1.6" fill="rgba(232,83,138,0.38)"/><circle cx="4" cy="24" r="1.6" fill="rgba(232,83,138,0.38)"/></svg>
+      <svg class="mf-corner mf-bl" viewBox="0 0 36 36" fill="none"><path d="M4,24 L4,4 L24,4" stroke="rgba(184,144,106,0.72)" stroke-width="1.6" stroke-linecap="round"/><circle cx="4" cy="4" r="2.8" fill="rgba(184,144,106,0.62)"/><path d="M10,4 Q10,10 4,10" stroke="rgba(184,144,106,0.42)" stroke-width="1" fill="none"/><circle cx="24" cy="4" r="1.6" fill="rgba(232,83,138,0.38)"/><circle cx="4" cy="24" r="1.6" fill="rgba(232,83,138,0.38)"/></svg>
+      <svg class="mf-corner mf-br" viewBox="0 0 36 36" fill="none"><path d="M4,24 L4,4 L24,4" stroke="rgba(184,144,106,0.72)" stroke-width="1.6" stroke-linecap="round"/><circle cx="4" cy="4" r="2.8" fill="rgba(184,144,106,0.62)"/><path d="M10,4 Q10,10 4,10" stroke="rgba(184,144,106,0.42)" stroke-width="1" fill="none"/><circle cx="24" cy="4" r="1.6" fill="rgba(232,83,138,0.38)"/><circle cx="4" cy="24" r="1.6" fill="rgba(232,83,138,0.38)"/></svg>
       <span class="ubic-icon">
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
           <rect x="16" y="2" width="8" height="12" rx="1" fill="#E8538A" opacity="0.8"/>
@@ -465,7 +512,14 @@ footer{padding:52px 20px 64px;text-align:center;}
       <div class="ubic-hora">6:30 p.m.</div>
       <a class="btn-pink" href="https://maps.google.com/maps?q=Santuario+San+Lorenzo+Valle+de+Juarez+Ciudad+Juarez+Chihuahua" target="_blank">Ver Ubicacion</a>
     </div>
+
+    <!-- Recepcion -->
     <div class="ubic-card rv">
+      <!-- Corner ornaments -->
+      <svg class="mf-corner mf-tl" viewBox="0 0 36 36" fill="none"><path d="M4,24 L4,4 L24,4" stroke="rgba(184,144,106,0.72)" stroke-width="1.6" stroke-linecap="round"/><circle cx="4" cy="4" r="2.8" fill="rgba(184,144,106,0.62)"/><path d="M10,4 Q10,10 4,10" stroke="rgba(184,144,106,0.42)" stroke-width="1" fill="none"/><circle cx="24" cy="4" r="1.6" fill="rgba(232,83,138,0.38)"/><circle cx="4" cy="24" r="1.6" fill="rgba(232,83,138,0.38)"/></svg>
+      <svg class="mf-corner mf-tr" viewBox="0 0 36 36" fill="none"><path d="M4,24 L4,4 L24,4" stroke="rgba(184,144,106,0.72)" stroke-width="1.6" stroke-linecap="round"/><circle cx="4" cy="4" r="2.8" fill="rgba(184,144,106,0.62)"/><path d="M10,4 Q10,10 4,10" stroke="rgba(184,144,106,0.42)" stroke-width="1" fill="none"/><circle cx="24" cy="4" r="1.6" fill="rgba(232,83,138,0.38)"/><circle cx="4" cy="24" r="1.6" fill="rgba(232,83,138,0.38)"/></svg>
+      <svg class="mf-corner mf-bl" viewBox="0 0 36 36" fill="none"><path d="M4,24 L4,4 L24,4" stroke="rgba(184,144,106,0.72)" stroke-width="1.6" stroke-linecap="round"/><circle cx="4" cy="4" r="2.8" fill="rgba(184,144,106,0.62)"/><path d="M10,4 Q10,10 4,10" stroke="rgba(184,144,106,0.42)" stroke-width="1" fill="none"/><circle cx="24" cy="4" r="1.6" fill="rgba(232,83,138,0.38)"/><circle cx="4" cy="24" r="1.6" fill="rgba(232,83,138,0.38)"/></svg>
+      <svg class="mf-corner mf-br" viewBox="0 0 36 36" fill="none"><path d="M4,24 L4,4 L24,4" stroke="rgba(184,144,106,0.72)" stroke-width="1.6" stroke-linecap="round"/><circle cx="4" cy="4" r="2.8" fill="rgba(184,144,106,0.62)"/><path d="M10,4 Q10,10 4,10" stroke="rgba(184,144,106,0.42)" stroke-width="1" fill="none"/><circle cx="24" cy="4" r="1.6" fill="rgba(232,83,138,0.38)"/><circle cx="4" cy="24" r="1.6" fill="rgba(232,83,138,0.38)"/></svg>
       <span class="ubic-icon">
         <svg width="38" height="38" viewBox="0 0 40 40" fill="none">
           <rect x="2" y="12" width="36" height="26" rx="3" stroke="#E8538A" stroke-width="1.5" fill="none" opacity="0.55"/>
@@ -583,20 +637,26 @@ footer{padding:52px 20px 64px;text-align:center;}
         <ellipse cx="80" cy="52" rx="7" ry="5.5" fill="#E8538A"/>
       </svg>
       <div class="buzon-card">
+        <!-- Corner ornaments -->
+        <svg class="mf-corner mf-tl" viewBox="0 0 36 36" fill="none"><path d="M4,24 L4,4 L24,4" stroke="rgba(184,144,106,0.72)" stroke-width="1.6" stroke-linecap="round"/><circle cx="4" cy="4" r="2.8" fill="rgba(184,144,106,0.62)"/><path d="M10,4 Q10,10 4,10" stroke="rgba(184,144,106,0.42)" stroke-width="1" fill="none"/><circle cx="24" cy="4" r="1.6" fill="rgba(232,83,138,0.38)"/><circle cx="4" cy="24" r="1.6" fill="rgba(232,83,138,0.38)"/></svg>
+        <svg class="mf-corner mf-tr" viewBox="0 0 36 36" fill="none"><path d="M4,24 L4,4 L24,4" stroke="rgba(184,144,106,0.72)" stroke-width="1.6" stroke-linecap="round"/><circle cx="4" cy="4" r="2.8" fill="rgba(184,144,106,0.62)"/><path d="M10,4 Q10,10 4,10" stroke="rgba(184,144,106,0.42)" stroke-width="1" fill="none"/><circle cx="24" cy="4" r="1.6" fill="rgba(232,83,138,0.38)"/><circle cx="4" cy="24" r="1.6" fill="rgba(232,83,138,0.38)"/></svg>
+        <svg class="mf-corner mf-bl" viewBox="0 0 36 36" fill="none"><path d="M4,24 L4,4 L24,4" stroke="rgba(184,144,106,0.72)" stroke-width="1.6" stroke-linecap="round"/><circle cx="4" cy="4" r="2.8" fill="rgba(184,144,106,0.62)"/><path d="M10,4 Q10,10 4,10" stroke="rgba(184,144,106,0.42)" stroke-width="1" fill="none"/><circle cx="24" cy="4" r="1.6" fill="rgba(232,83,138,0.38)"/><circle cx="4" cy="24" r="1.6" fill="rgba(232,83,138,0.38)"/></svg>
+        <svg class="mf-corner mf-br" viewBox="0 0 36 36" fill="none"><path d="M4,24 L4,4 L24,4" stroke="rgba(184,144,106,0.72)" stroke-width="1.6" stroke-linecap="round"/><circle cx="4" cy="4" r="2.8" fill="rgba(184,144,106,0.62)"/><path d="M10,4 Q10,10 4,10" stroke="rgba(184,144,106,0.42)" stroke-width="1" fill="none"/><circle cx="24" cy="4" r="1.6" fill="rgba(232,83,138,0.38)"/><circle cx="4" cy="24" r="1.6" fill="rgba(232,83,138,0.38)"/></svg>
         <div class="buzon-icon-wrap">
-          <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
-            <rect x="4" y="14" width="44" height="30" rx="3" stroke="#E8538A" stroke-width="1.8" fill="none" opacity="0.5"/>
-            <path d="M4,14 L26,30 L48,14" stroke="#E8538A" stroke-width="1.8" fill="none" opacity="0.5"/>
-            <rect x="20" y="4" width="12" height="16" rx="2" stroke="#E8538A" stroke-width="1.5" fill="rgba(232,83,138,0.08)"/>
-            <line x1="26" y1="4" x2="26" y2="20" stroke="#E8538A" stroke-width="1.5" opacity="0.6"/>
+          <!-- Gift / money box icon -->
+          <svg width="56" height="52" viewBox="0 0 56 52" fill="none">
+            <rect x="6" y="20" width="44" height="28" rx="3" stroke="#E8538A" stroke-width="1.8" fill="rgba(232,83,138,0.07)" opacity="0.7"/>
+            <rect x="4" y="13" width="48" height="9" rx="2" stroke="#E8538A" stroke-width="1.5" fill="rgba(232,83,138,0.07)" opacity="0.7"/>
+            <rect x="19" y="12" width="18" height="4" rx="2" fill="#E8538A" opacity="0.32"/>
+            <line x1="28" y1="13" x2="28" y2="48" stroke="#E8538A" stroke-width="1.5" opacity="0.38"/>
+            <line x1="6" y1="26" x2="50" y2="26" stroke="#E8538A" stroke-width="1" opacity="0.24"/>
+            <path d="M28,13 C22,7 14,6 16,11Z" fill="#E8538A" opacity="0.72"/>
+            <path d="M28,13 C34,7 42,6 40,11Z" fill="#E8538A" opacity="0.72"/>
+            <circle cx="28" cy="13" r="3.5" fill="#C83070" opacity="0.80"/>
+            <ellipse cx="26.5" cy="11.5" rx="1.5" ry="1" fill="rgba(255,255,255,0.38)"/>
           </svg>
         </div>
-        <p class="buzon-text">Lo mas importante para mi es que puedas celebrar este dia tan especial. Si deseas hacerme un regalo, con mucho carino puedes depositarlo aqui:</p>
-        <div class="buzon-clabe-wrap">
-          <div class="buzon-clabe-label">CLABE Interbancaria</div>
-          <div class="buzon-clabe" id="clabeNum">Proximamente</div>
-          <div class="buzon-pending">Se actualizara pronto</div>
-        </div>
+        <p class="buzon-text">En el festejo encontraras un hermoso buzon especialmente decorado donde podras depositar tu regalo en efectivo.<br><br>Tu carino y presencia son lo mas valioso para Andrea y su familia.</p>
       </div>
     </div>
   </section>
@@ -613,7 +673,7 @@ footer{padding:52px 20px 64px;text-align:center;}
     <p style="text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:var(--gold);margin-bottom:32px;" class="rv">&#161;Nos encantaria contar con tu presencia!</p>
     <div class="rsvp-outer rv">
 
-      <!-- MOÑO GRANDE — estilo regalo, con colas de listón a los lados -->
+      <!-- MOÑO GRANDE -->
       <svg class="rsvp-bow-grande" viewBox="0 0 240 150" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <radialGradient id="rbl" cx="28%" cy="38%"><stop offset="0%" stop-color="#FFCCE0"/><stop offset="55%" stop-color="#F07FAD"/><stop offset="100%" stop-color="#E8538A"/></radialGradient>
@@ -621,32 +681,27 @@ footer{padding:52px 20px 64px;text-align:center;}
           <radialGradient id="rblf" cx="28%" cy="62%"><stop offset="0%" stop-color="#F4A8C8"/><stop offset="100%" stop-color="#C83070"/></radialGradient>
           <radialGradient id="rbrf" cx="72%" cy="62%"><stop offset="0%" stop-color="#F4A8C8"/><stop offset="100%" stop-color="#C83070"/></radialGradient>
         </defs>
-        <!-- Ala izquierda superior -->
         <path d="M120,75 C108,52 76,28 46,40 C22,50 28,76 56,80 C82,84 112,76 120,75Z" fill="url(#rbl)"/>
-        <!-- Ala izquierda pliegue inferior -->
         <path d="M120,79 C106,90 80,98 56,90 C36,83 38,68 58,70 C82,72 112,78 120,79Z" fill="url(#rblf)" opacity="0.75"/>
-        <!-- Ala derecha superior -->
         <path d="M120,75 C132,52 164,28 194,40 C218,50 212,76 184,80 C158,84 128,76 120,75Z" fill="url(#rbr)"/>
-        <!-- Ala derecha pliegue inferior -->
         <path d="M120,79 C134,90 160,98 184,90 C204,83 202,68 182,70 C158,72 128,78 120,79Z" fill="url(#rbrf)" opacity="0.75"/>
-        <!-- Cola izquierda -->
         <path d="M110,86 C90,108 64,126 40,140" stroke="#E8538A" stroke-width="9" stroke-linecap="round" fill="none"/>
         <path d="M115,88 C98,110 76,128 54,142" stroke="#FAC8DC" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.7"/>
-        <!-- Cola derecha -->
         <path d="M130,86 C150,108 176,126 200,140" stroke="#E8538A" stroke-width="9" stroke-linecap="round" fill="none"/>
         <path d="M125,88 C142,110 164,128 186,142" stroke="#FAC8DC" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.7"/>
-        <!-- Nudo central -->
         <ellipse cx="120" cy="78" rx="20" ry="16" fill="#C83070"/>
         <ellipse cx="120" cy="78" rx="11" ry="9" fill="#E8538A"/>
-        <!-- Brillo ala izquierda -->
         <path d="M58,50 C75,43 96,48 112,60" stroke="rgba(255,255,255,0.32)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-        <!-- Brillo ala derecha -->
         <path d="M182,50 C165,43 144,48 128,60" stroke="rgba(255,255,255,0.32)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-        <!-- Brillo nudo -->
         <ellipse cx="114" cy="72" rx="5" ry="3.5" fill="rgba(255,255,255,0.30)"/>
       </svg>
 
       <div class="rsvp-frame">
+        <!-- Corner ornaments -->
+        <svg class="mf-corner mf-tl" viewBox="0 0 36 36" fill="none"><path d="M4,24 L4,4 L24,4" stroke="rgba(184,144,106,0.72)" stroke-width="1.6" stroke-linecap="round"/><circle cx="4" cy="4" r="2.8" fill="rgba(184,144,106,0.62)"/><path d="M10,4 Q10,10 4,10" stroke="rgba(184,144,106,0.42)" stroke-width="1" fill="none"/><circle cx="24" cy="4" r="1.6" fill="rgba(232,83,138,0.38)"/><circle cx="4" cy="24" r="1.6" fill="rgba(232,83,138,0.38)"/></svg>
+        <svg class="mf-corner mf-tr" viewBox="0 0 36 36" fill="none"><path d="M4,24 L4,4 L24,4" stroke="rgba(184,144,106,0.72)" stroke-width="1.6" stroke-linecap="round"/><circle cx="4" cy="4" r="2.8" fill="rgba(184,144,106,0.62)"/><path d="M10,4 Q10,10 4,10" stroke="rgba(184,144,106,0.42)" stroke-width="1" fill="none"/><circle cx="24" cy="4" r="1.6" fill="rgba(232,83,138,0.38)"/><circle cx="4" cy="24" r="1.6" fill="rgba(232,83,138,0.38)"/></svg>
+        <svg class="mf-corner mf-bl" viewBox="0 0 36 36" fill="none"><path d="M4,24 L4,4 L24,4" stroke="rgba(184,144,106,0.72)" stroke-width="1.6" stroke-linecap="round"/><circle cx="4" cy="4" r="2.8" fill="rgba(184,144,106,0.62)"/><path d="M10,4 Q10,10 4,10" stroke="rgba(184,144,106,0.42)" stroke-width="1" fill="none"/><circle cx="24" cy="4" r="1.6" fill="rgba(232,83,138,0.38)"/><circle cx="4" cy="24" r="1.6" fill="rgba(232,83,138,0.38)"/></svg>
+        <svg class="mf-corner mf-br" viewBox="0 0 36 36" fill="none"><path d="M4,24 L4,4 L24,4" stroke="rgba(184,144,106,0.72)" stroke-width="1.6" stroke-linecap="round"/><circle cx="4" cy="4" r="2.8" fill="rgba(184,144,106,0.62)"/><path d="M10,4 Q10,10 4,10" stroke="rgba(184,144,106,0.42)" stroke-width="1" fill="none"/><circle cx="24" cy="4" r="1.6" fill="rgba(232,83,138,0.38)"/><circle cx="4" cy="24" r="1.6" fill="rgba(232,83,138,0.38)"/></svg>
         <label>Tu nombre completo</label>
         <input type="text" id="rName" placeholder="Nombre" autocomplete="name">
         <label>Asistiras?</label>
@@ -654,8 +709,6 @@ footer{padding:52px 20px 64px;text-align:center;}
           <option>Si, con mucho gusto asistire</option>
           <option>Lamento no poder asistir</option>
         </select>
-        <label>Numero de invitados</label>
-        <input type="number" id="rGuests" min="1" max="6" value="1" inputmode="numeric">
         <label>Un mensaje para Andrea</label>
         <textarea id="rMsg" rows="3" placeholder="Escribe tus deseos..."></textarea>
         <button class="btn-wa" id="rsvpBtn" aria-label="Confirmar por WhatsApp">
@@ -739,7 +792,7 @@ footer{padding:52px 20px 64px;text-align:center;}
   <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
 </button>
 <audio id="bgAudio" loop preload="none">
-  <source src="https://audio.jukehost.co.uk/9hKrAnJzrCzXkHc1qMfUuDqxIgTYPvYE" type="audio/mpeg">
+  <source src="./musica.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -754,7 +807,7 @@ gsap.registerPlugin(ScrollTrigger);
   var envVideo=document.getElementById('env-video');
   var envFlash=document.getElementById('env-flash');
   var hint=document.getElementById('env-hint');
-  var opened=false,flashStarted=false,invitationReady=false;
+  var opened=false,invitationReady=false;
 
   gsap.timeline()
     .to(envScreen,{opacity:1,duration:1.2,ease:'power2.out',delay:0.3})
@@ -771,13 +824,11 @@ gsap.registerPlugin(ScrollTrigger);
     gsap.to(envFlash,{opacity:0,duration:3.5,ease:'power2.out',
       onComplete:function(){envFlash.style.display='none';}});
   }
-  envVideo.addEventListener('timeupdate',function(){
-    if(!flashStarted&&envVideo.duration&&envVideo.currentTime>=envVideo.duration-8){
-      flashStarted=true;
-      gsap.to(envFlash,{opacity:1,duration:5,ease:'power1.inOut',onComplete:revealInvitation});
-    }
+
+  /* Solo disparar al terminar el video — no antes */
+  envVideo.addEventListener('ended',function(){
+    gsap.to(envFlash,{opacity:1,duration:1.5,ease:'power2.inOut',onComplete:revealInvitation});
   });
-  envVideo.addEventListener('ended',function(){gsap.set(envFlash,{opacity:1});revealInvitation();});
 
   function openEnvelope(){
     if(opened)return; opened=true;
@@ -847,10 +898,9 @@ function initSparkles(){
 document.getElementById('rsvpBtn').addEventListener('click',function(){
   var n=document.getElementById('rName').value.trim()||'Invitado/a';
   var a=document.getElementById('rAssist').value;
-  var g=document.getElementById('rGuests').value||'1';
   var m=document.getElementById('rMsg').value.trim();
-  var t='Hola! Soy '+n+'.\n'+a+'.\nInvitados: '+g+(m?'\nMensaje: '+m:'');
-  window.open('https://wa.me/526561234567?text='+encodeURIComponent(t),'_blank');
+  var t='Hola! Soy '+n+'.\n'+a+(m?'\nMensaje: '+m:'');
+  window.open('https://wa.me/526566043929?text='+encodeURIComponent(t),'_blank');
 });
 
 /* ── MUSICA ── */
