@@ -805,7 +805,6 @@ gsap.registerPlugin(ScrollTrigger);
   var envScreen=document.getElementById('envelope-screen');
   var envImage=document.getElementById('env-image');
   var envVideo=document.getElementById('env-video');
-  var envFlash=document.getElementById('env-flash');
   var hint=document.getElementById('env-hint');
   var opened=false,invitationReady=false;
 
@@ -813,21 +812,21 @@ gsap.registerPlugin(ScrollTrigger);
     .to(envScreen,{opacity:1,duration:1.2,ease:'power2.out',delay:0.3})
     .to(hint,{opacity:1,duration:0.9,ease:'power2.out'},'-=0.5');
 
-  function prepareInvitation(){
-    if(invitationReady)return; invitationReady=true;
-    envScreen.style.display='none';
-    document.getElementById('wrapEl').style.visibility='visible';
-    launchPage();
-  }
-  function revealInvitation(){
-    prepareInvitation();
-    gsap.to(envFlash,{opacity:0,duration:3.5,ease:'power2.out',
-      onComplete:function(){envFlash.style.display='none';}});
-  }
-
-  /* Solo disparar al terminar el video — no antes */
+  /* Al terminar el video: desvanece el sobre y revela la invitacion lentamente */
   envVideo.addEventListener('ended',function(){
-    gsap.to(envFlash,{opacity:1,duration:1.5,ease:'power2.inOut',onComplete:revealInvitation});
+    if(invitationReady)return; invitationReady=true;
+    var wrap=document.getElementById('wrapEl');
+    wrap.style.visibility='visible';
+    /* Crossfade: el sobre se desvanece mientras la invitacion aparece debajo */
+    gsap.to(envScreen,{opacity:0,duration:2.4,ease:'power1.inOut',onComplete:function(){
+      envScreen.style.display='none';
+    }});
+    /* Iniciar animaciones de la pagina */
+    launchPage();
+    /* Musica automatica a volumen bajo */
+    var bgAudio=document.getElementById('bgAudio');
+    bgAudio.volume=0.22;
+    bgAudio.play().catch(function(){});
   });
 
   function openEnvelope(){
@@ -836,7 +835,10 @@ gsap.registerPlugin(ScrollTrigger);
     var pp=envVideo.play();
     gsap.to(envImage,{opacity:0,duration:0.55,ease:'power2.inOut',onComplete:function(){envImage.style.display='none';}});
     gsap.to(envVideo,{opacity:1,duration:0.55,ease:'power2.inOut'});
-    if(pp!==undefined)pp.catch(function(){revealInvitation();});
+    if(pp!==undefined)pp.catch(function(){
+      /* Si el video falla, revelar directamente */
+      if(!invitationReady){ invitationReady=true; document.getElementById('wrapEl').style.visibility='visible'; launchPage(); }
+    });
   }
   envScreen.addEventListener('click',openEnvelope);
   envScreen.addEventListener('touchstart',function(e){e.preventDefault();openEnvelope();},{passive:false});
@@ -905,11 +907,15 @@ document.getElementById('rsvpBtn').addEventListener('click',function(){
 
 /* ── MUSICA ── */
 var fab=document.getElementById('musicFab'),audio=document.getElementById('bgAudio');
-var playing=false;
+audio.volume=0.22;
 fab.addEventListener('click',function(){
-  playing=!playing;
-  if(playing){audio.play().catch(function(){});fab.style.borderColor='rgba(255,255,255,0.9)';}
-  else{audio.pause();fab.style.borderColor='';}
+  if(audio.paused){
+    audio.play().catch(function(){});
+    fab.style.borderColor='rgba(255,255,255,0.9)';
+  } else {
+    audio.pause();
+    fab.style.borderColor='';
+  }
 });
 </script>
 </body>
