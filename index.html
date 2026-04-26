@@ -307,18 +307,49 @@ footer{padding:52px 20px 64px;text-align:center;}
 }
 
 /* ── PASES ── */
-.pases-wrap{display:none;margin-top:16px;}
-.pases-label{font-family:'Montserrat',sans-serif;font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:7px;}
-.pases-display{
-  width:100%;padding:13px 16px;min-height:48px;
-  border:1.5px solid rgba(184,144,106,0.55);border-radius:10px;
-  background:linear-gradient(135deg,rgba(253,238,244,0.6),rgba(253,246,238,0.8));
-  display:flex;align-items:center;justify-content:center;gap:10px;
-  position:relative;z-index:1;
+.pases-wrap{display:none;margin-top:16px;margin-bottom:4px;position:relative;z-index:1;}
+.pases-card{
+  border:1.5px solid rgba(184,144,106,0.52);
+  border-radius:6px;padding:22px 18px 18px;text-align:center;
+  background:linear-gradient(135deg,rgba(253,238,244,0.75),rgba(253,246,238,0.95));
+  box-shadow:0 6px 28px rgba(232,83,138,0.08),inset 0 1px 0 rgba(255,255,255,0.6);
+  position:relative;
 }
-.pases-num{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--pink);line-height:1;}
-.pases-txt{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--text);line-height:1.3;}
-.pases-stars{display:flex;gap:4px;align-items:center;}
+.pases-card::before{
+  content:'';position:absolute;inset:7px;
+  border:1px solid rgba(232,83,138,0.20);
+  border-radius:3px;pointer-events:none;
+}
+.pases-title{
+  font-family:'Playfair Display',serif;font-weight:700;
+  font-size:20px;letter-spacing:8px;color:var(--pink);
+  text-transform:uppercase;margin-bottom:6px;position:relative;z-index:1;
+}
+.pases-sub{
+  font-family:'Montserrat',sans-serif;font-size:7px;
+  letter-spacing:5px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:16px;position:relative;z-index:1;
+}
+.pases-circles{
+  display:flex;justify-content:center;gap:10px;
+  margin-bottom:14px;position:relative;z-index:1;
+}
+.pases-circle{
+  width:46px;height:46px;border-radius:50%;
+  border:1.5px solid rgba(232,83,138,0.28);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:15px;font-weight:700;
+  color:rgba(93,48,32,0.32);background:rgba(255,255,255,0.55);
+}
+.pases-circle.active{
+  background:var(--pink);border-color:var(--pink);color:#fff;
+  box-shadow:0 4px 14px rgba(232,83,138,0.38);
+}
+.pases-honor{
+  font-family:'Montserrat',sans-serif;font-size:7px;
+  letter-spacing:5px;text-transform:uppercase;
+  color:var(--gold);position:relative;z-index:1;
+}
 
 /* ── REVEAL ── */
 .rv{opacity:0;transform:translateY(22px);}
@@ -730,15 +761,15 @@ footer{padding:52px 20px 64px;text-align:center;}
         <input type="text" id="rName" placeholder="Nombre" autocomplete="name">
         <!-- Pases (visible solo si ?pases=N está en la URL) -->
         <div class="pases-wrap" id="pasesWrap">
-          <span class="pases-label">Tus Pases</span>
-          <div class="pases-display">
-            <span class="pases-num" id="pasesNum">2</span>
-            <div>
-              <div class="pases-txt" id="pasesTxt">pases incluidos</div>
-              <div class="pases-stars" id="pasesStars"></div>
-            </div>
+          <div class="pases-card">
+            <div class="pases-title">Pases</div>
+            <div class="pases-sub">Hemos reservado</div>
+            <div class="pases-circles" id="pasesCircles"></div>
+            <div class="pases-honor">Asientos en tu honor</div>
           </div>
         </div>
+        <!-- Nombres acompañantes (generados dinámicamente) -->
+        <div id="acompWrap"></div>
         <label>&iquest;Asistir&aacute;s?</label>
         <select id="rAssist">
           <option>S&iacute;, con mucho gusto asistir&eacute;</option>
@@ -937,19 +968,33 @@ var _pases=0;
   var p=parseInt(new URLSearchParams(window.location.search).get('pases'),10);
   if(!p||p<1)return;
   _pases=Math.min(p,4);
-  var wrap=document.getElementById('pasesWrap');
-  document.getElementById('pasesNum').textContent=_pases;
-  document.getElementById('pasesTxt').textContent=_pases===1?'pase incluido':'pases incluidos';
-  /* Estrellitas indicadoras */
-  var stars=document.getElementById('pasesStars');
-  for(var i=0;i<_pases;i++){
-    var s=document.createElementNS('http://www.w3.org/2000/svg','svg');
-    s.setAttribute('width','10');s.setAttribute('height','10');s.setAttribute('viewBox','0 0 24 24');s.setAttribute('fill','#E8538A');
-    var path=document.createElementNS('http://www.w3.org/2000/svg','path');
-    path.setAttribute('d','M12 2l1.2 7.8L21 12l-7.8 1.2L12 22l-1.2-8.8L3 12l8.8-1.2z');
-    s.appendChild(path);stars.appendChild(s);
+
+  /* Círculos 1–4 */
+  var circles=document.getElementById('pasesCircles');
+  for(var i=1;i<=4;i++){
+    var c=document.createElement('div');
+    c.className='pases-circle'+(i<=_pases?' active':'');
+    c.textContent=i;
+    circles.appendChild(c);
   }
-  wrap.style.display='block';
+  document.getElementById('pasesWrap').style.display='block';
+
+  /* Campos de nombres para acompañantes (a partir del 2do pase) */
+  if(_pases>1){
+    var acompWrap=document.getElementById('acompWrap');
+    var lbl0=document.createElement('label');
+    lbl0.textContent='Nombres de acompa\xf1antes';
+    acompWrap.appendChild(lbl0);
+    for(var j=2;j<=_pases;j++){
+      var inp=document.createElement('input');
+      inp.type='text';
+      inp.id='acomp'+j;
+      inp.placeholder='Acompa\xf1ante '+( j-1);
+      inp.autocomplete='off';
+      inp.style.marginBottom=(j<_pases?'8px':'0');
+      acompWrap.appendChild(inp);
+    }
+  }
 }());
 
 /* ── RSVP ── */
@@ -957,8 +1002,18 @@ document.getElementById('rsvpBtn').addEventListener('click',function(){
   var n=document.getElementById('rName').value.trim()||'Invitado/a';
   var a=document.getElementById('rAssist').value;
   var m=document.getElementById('rMsg').value.trim();
+  /* Armar lista de acompañantes */
+  var acompLine='';
+  if(_pases>1){
+    var nombres=[];
+    for(var j=2;j<=_pases;j++){
+      var v=document.getElementById('acomp'+j);
+      if(v&&v.value.trim())nombres.push(v.value.trim());
+    }
+    if(nombres.length)acompLine='\nAcompa\xf1antes: '+nombres.join(', ');
+  }
   var pasesLine=_pases>0?'\nPases: '+_pases+(_pases===1?' pase':' pases'):'';
-  var t='Hola! Soy '+n+'.\n'+a+pasesLine+(m?'\nMensaje: '+m:'');
+  var t='Hola! Soy '+n+'.\n'+a+pasesLine+acompLine+(m?'\nMensaje: '+m:'');
   window.open('https://wa.me/526566043929?text='+encodeURIComponent(t),'_blank');
 });
 
